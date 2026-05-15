@@ -1,0 +1,12 @@
+# Logs serveur
+server.log
+server.err
+
+# Fichiers Office / docs
+*.docx
+*.doc
+*.xlsx
+
+# OS
+.DS_Store
+Thumbs.db

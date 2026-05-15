@@ -1,0 +1,9 @@
+<?php
+namespace App\Filament\Resources\MembreEquipeResource\Pages;
+use App\Filament\Resources\MembreEquipeResource;
+use Filament\Actions;
+use Filament\Resources\Pages\ListRecords;
+class ListMembresEquipe extends ListRecords {
+    protected static string $resource = MembreEquipeResource::class;
+    protected function getHeaderActions(): array { return [Actions\CreateAction::make()]; }
+}

@@ -39,7 +39,7 @@
             class="text-center py-8 border-white/10"
             :class="i < 3 ? 'border-r' : ''"
           >
-            <div class="font-heading text-4xl font-bold text-dst-orange mb-1">{{ stat.value }}</div>
+            <div class="font-heading text-4xl font-bold text-dst-orange mb-1">{{ stat.valeur }}</div>
             <div class="text-white/50 text-xs uppercase tracking-wide">{{ stat.label }}</div>
           </div>
         </div>
@@ -76,49 +76,44 @@
     <section class="py-24 bg-dst-light">
       <div class="section-container">
 
-        <!-- Header équipe -->
+        <!-- Header -->
         <div class="text-center mb-14">
           <span class="inline-block bg-dst-blue/10 text-dst-blue text-xs font-bold tracking-widest uppercase px-4 py-1.5 rounded-full mb-5">
             Les visages de DST
           </span>
-          <h2 class="font-heading text-3xl md:text-4xl font-bold text-dst-navy mb-3">
-            Notre équipe
-          </h2>
-          <p class="text-dst-gray text-sm max-w-sm mx-auto mb-8">
-            Des passionnés du numérique engagés à vos côtés au quotidien.
-          </p>
-
-          <!-- Ligne avec avatars preview -->
-          <div class="flex items-center justify-center gap-0 mb-2">
-            <div class="h-px w-16 bg-gray-200" />
-            <div class="flex -space-x-3 mx-4">
-              <div class="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center text-white text-xs font-bold shadow-md bg-dst-blue">DG</div>
-              <div class="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center text-white text-xs font-bold shadow-md bg-dst-orange">LD</div>
-              <div class="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center text-white text-xs font-bold shadow-md bg-purple-600">UX</div>
-              <div class="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center text-white text-xs font-bold shadow-md bg-green-600">IS</div>
-            </div>
-            <div class="h-px w-16 bg-gray-200" />
-          </div>
-          <p class="text-xs text-gray-400">4 experts · Dakar, Sénégal</p>
+          <h2 class="font-heading text-3xl md:text-4xl font-bold text-dst-navy mb-3">Notre équipe</h2>
+          <p class="text-dst-gray text-sm max-w-sm mx-auto">Des passionnés du numérique engagés à vos côtés au quotidien.</p>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           <div
             v-for="membre in equipe"
             :key="membre.nom"
-            class="bg-white rounded-2xl shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 overflow-hidden group"
+            class="bg-white rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1.5 group"
           >
-            <!-- Avatar -->
-            <div class="h-44 flex items-end justify-center relative" :class="membre.heroBg">
-              <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0); background-size: 20px 20px;" />
-              <div class="relative z-10 w-20 h-20 rounded-full border-4 border-white shadow-lg flex items-center justify-center text-white font-heading font-bold text-2xl mb-0 translate-y-10" :class="membre.avatarBg">
-                {{ membre.initials }}
+            <!-- Bandeau couleur haut avec avatar centré qui dépasse -->
+            <div class="relative h-32" :style="`background: ${membre.heroBg};`">
+              <!-- Motif points déco -->
+              <div class="absolute inset-0 opacity-[0.08]" style="background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0); background-size: 18px 18px;" />
+              <!-- Accent déco -->
+              <div class="absolute -bottom-6 -right-6 w-24 h-24 rounded-full opacity-20" :style="`background: ${membre.roleColor};`" />
+              <!-- Avatar positionné en bas au centre -->
+              <div class="absolute -bottom-10 left-1/2 -translate-x-1/2">
+                <div class="w-20 h-20 rounded-full border-4 border-white shadow-lg overflow-hidden" :style="`background: ${membre.roleColor};`">
+                  <img src="/icone.png" alt="Avatar" class="w-full h-full object-cover" />
+                </div>
               </div>
             </div>
 
+            <!-- Contenu texte -->
             <div class="pt-12 pb-6 px-5 text-center">
-              <h3 class="font-heading font-bold text-dst-navy text-base">{{ membre.nom }}</h3>
-              <p class="text-sm font-semibold mb-2" :class="membre.roleColor">{{ membre.poste }}</p>
+              <!-- Badge rôle coloré -->
+              <span class="inline-block text-xs font-bold px-3 py-1 rounded-full mb-3 text-white" :style="`background: ${membre.roleColor};`">
+                {{ membre.initials }}
+              </span>
+              <h3 class="font-heading font-bold text-dst-navy text-base leading-tight mb-1">{{ membre.nom }}</h3>
+              <p class="text-sm font-semibold mb-4" :style="`color: ${membre.roleColor};`">{{ membre.poste }}</p>
+              <div class="w-10 h-px mx-auto mb-4 bg-gray-200" />
               <p class="text-dst-gray text-xs leading-relaxed">{{ membre.bio }}</p>
             </div>
           </div>
@@ -161,17 +156,24 @@
     <!-- ═══════════════════════════════════════════
          TECHNOLOGIES
     ═══════════════════════════════════════════ -->
-    <section class="py-16 bg-white border-b border-gray-100">
-      <div class="section-container">
-        <p class="text-center text-xs font-bold tracking-widest uppercase text-gray-400 mb-8">Technologies & Outils</p>
-        <div class="flex flex-wrap justify-center gap-3">
-          <span
-            v-for="tech in technologies"
-            :key="tech"
-            class="px-4 py-2 rounded-xl bg-dst-light text-dst-navy text-sm font-medium border border-gray-100 hover:border-dst-blue/30 hover:text-dst-blue transition-colors"
-          >
-            {{ tech }}
-          </span>
+    <section class="py-16 bg-white border-b border-gray-100 overflow-hidden">
+      <p class="text-center text-xs font-bold tracking-widest uppercase text-gray-400 mb-8">Technologies & Outils</p>
+
+      <div
+        class="relative"
+        style="mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+               -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);"
+      >
+        <div class="flex tech-marquee-track">
+          <template v-for="pass in 2" :key="pass">
+            <span
+              v-for="tech in technologies"
+              :key="`${pass}-${tech}`"
+              class="flex-shrink-0 mx-2 px-5 py-2.5 rounded-xl bg-dst-light text-dst-navy text-sm font-medium border border-gray-100 hover:border-dst-blue/40 hover:text-dst-blue hover:bg-blue-50 transition-colors cursor-default whitespace-nowrap"
+            >
+              {{ tech }}
+            </span>
+          </template>
         </div>
       </div>
     </section>
@@ -208,78 +210,86 @@
 
 <script setup lang="ts">
 useSeoMeta({
-  title: 'Qui sommes-nous — DST Computing',
-  description: 'DST Computing, société informatique basée à Dakar, Sénégal. Développement logiciel, transformation numérique, IA pour les entreprises africaines.',
+  title: 'Qui Sommes-Nous — Société Informatique à Dakar, Sénégal',
+  description: 'DST Computing (NAMASTECH) est une société informatique fondée à Dakar, Sénégal. Spécialisée en développement logiciel sur mesure, transformation numérique et intelligence artificielle pour les entreprises d\'Afrique de l\'Ouest depuis plus de 10 ans.',
+  keywords: 'DST Computing Dakar, NAMASTECH Sénégal, société informatique Dakar, entreprise IT Sénégal, équipe développeurs Dakar, startup tech Sénégal, transformation numérique Dakar, cabinet informatique Sénégal, agence digitale Dakar',
+  ogTitle: 'DST Computing — Société Informatique fondée à Dakar',
+  ogDescription: 'Découvrez l\'équipe et l\'histoire de DST Computing, votre partenaire numérique en Afrique de l\'Ouest depuis Dakar, Sénégal.',
+  ogUrl: 'https://www.dstcomputing.sn/qui-sommes-nous',
+  ogImage: 'https://www.dstcomputing.sn/og-image.jpg',
 })
-
-const stats = [
-  { value: '10+', label: 'Années d\'expérience' },
-  { value: '50+', label: 'Projets livrés' },
-  { value: '30+', label: 'Clients actifs' },
-  { value: '5', label: 'Secteurs couverts' },
-]
-
-const missionItems = [
-  {
-    title: 'Notre mission',
-    text: 'Accompagner les entreprises africaines dans leur transformation numérique avec des solutions IT innovantes, fiables et adaptées aux réalités locales.',
-    iconBg: 'bg-dst-blue/10',
-    iconColor: 'text-dst-blue',
-    bar: 'bg-dst-blue',
-    iconPath: 'M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z',
-  },
-  {
-    title: 'Notre vision',
-    text: 'Devenir le partenaire technologique de référence en Afrique de l\'Ouest, reconnu pour la qualité de nos solutions et notre proximité client.',
-    iconBg: 'bg-orange-50',
-    iconColor: 'text-dst-orange',
-    bar: 'bg-dst-orange',
-    iconPath: 'M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z',
-  },
-  {
-    title: 'Notre engagement',
-    text: 'Un accompagnement humain, une écoute active et des livrables de qualité. Chaque projet est traité comme une priorité, quelle que soit sa taille.',
-    iconBg: 'bg-green-50',
-    iconColor: 'text-green-600',
-    bar: 'bg-green-500',
-    iconPath: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
-  },
-]
+useHead({
+  link: [{ rel: 'canonical', href: 'https://www.dstcomputing.sn/qui-sommes-nous' }],
+  script: [{
+    type: 'application/ld+json',
+    innerHTML: JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'AboutPage',
+      name: 'Qui sommes-nous — DST Computing',
+      url: 'https://www.dstcomputing.sn/qui-sommes-nous',
+      description: 'Page de présentation de DST Computing, société informatique à Dakar, Sénégal.',
+      mainEntity: { '@id': 'https://www.dstcomputing.sn/#organization' },
+    }),
+  }],
+})
 
 const config = useRuntimeConfig()
 
+const { data: rawStats } = await useFetch<any[]>(`${config.public.apiBase}/v1/stats?contexte=about`)
+const stats = computed(() => rawStats.value ?? [])
+
+const { data: rawMissionItems } = await useFetch<any[]>(`${config.public.apiBase}/v1/mission-items`)
+const missionItems = computed(() => (rawMissionItems.value ?? []).map((m: any) => ({
+  title: m.titre,
+  text: m.texte,
+  iconBg: m.icone_bg,
+  iconColor: m.icone_color,
+  bar: m.barre,
+  iconPath: m.icone_path,
+})))
+
 const { data: rawEquipe } = await useFetch<any[]>(`${config.public.apiBase}/v1/equipe`)
 
+
 const styleEquipe: Record<string, { heroBg: string; roleColor: string }> = {
-  'DG': { heroBg: 'bg-gradient-to-br from-dst-navy to-dst-blue', roleColor: 'text-dst-blue' },
-  'LD': { heroBg: 'bg-gradient-to-br from-orange-600 to-dst-orange', roleColor: 'text-dst-orange' },
-  'UX': { heroBg: 'bg-gradient-to-br from-purple-700 to-purple-500', roleColor: 'text-purple-600' },
-  'IS': { heroBg: 'bg-gradient-to-br from-green-700 to-green-500', roleColor: 'text-green-600' },
+  'DG': { heroBg: 'linear-gradient(135deg, #0F1A3E 0%, #1e40af 100%)', roleColor: '#1e40af' },
+  'LD': { heroBg: 'linear-gradient(135deg, #c2410c 0%, #f97316 100%)', roleColor: '#f97316' },
+  'UX': { heroBg: 'linear-gradient(135deg, #6d28d9 0%, #a855f7 100%)', roleColor: '#7c3aed' },
+  'IS': { heroBg: 'linear-gradient(135deg, #15803d 0%, #22c55e 100%)', roleColor: '#16a34a' },
 }
 
 const equipe = computed(() => (rawEquipe.value ?? []).map((m: any) => ({
   initials: m.initiales,
-  heroBg: styleEquipe[m.initiales]?.heroBg ?? 'bg-gradient-to-br from-dst-navy to-dst-blue',
-  avatarBg: m.avatar_bg,
-  roleColor: styleEquipe[m.initiales]?.roleColor ?? 'text-dst-blue',
+  heroBg: styleEquipe[m.initiales]?.heroBg ?? 'linear-gradient(135deg, #0F1A3E 0%, #1e40af 100%)',
+  roleColor: styleEquipe[m.initiales]?.roleColor ?? '#1e40af',
   nom: m.nom,
   poste: m.poste,
   bio: m.bio,
 })))
 
-const valeurs = [
-  { title: 'Excellence', text: 'Code propre, interfaces soignées, documentation complète. Nous ne livrons que ce dont nous sommes fiers.', numBg: 'bg-dst-blue/20 text-dst-blue' },
-  { title: 'Innovation', text: 'Nous explorons constamment de nouvelles technologies pour apporter les meilleures solutions du marché.', numBg: 'bg-dst-orange/20 text-dst-orange' },
-  { title: 'Partenariat', text: 'Nous ne sommes pas de simples prestataires, mais de véritables partenaires dans la durée.', numBg: 'bg-green-500/20 text-green-400' },
-  { title: 'Confiance', text: 'Confidentialité, transparence et honnêteté dans chaque échange et chaque livrable.', numBg: 'bg-purple-500/20 text-purple-400' },
-  { title: 'Agilité', text: 'Des cycles courts, des retours fréquents. Vos besoins évoluent, nos solutions s\'adaptent.', numBg: 'bg-teal-500/20 text-teal-400' },
-  { title: 'Ancrage local', text: 'Nous comprenons les défis locaux — énergie, connectivité, coûts — et y apportons des réponses concrètes.', numBg: 'bg-yellow-500/20 text-yellow-400' },
-]
+const { data: rawValeurs } = await useFetch<any[]>(`${config.public.apiBase}/v1/valeurs`)
+const valeurs = computed(() => (rawValeurs.value ?? []).map((v: any) => ({
+  title: v.titre,
+  text: v.texte,
+  numBg: v.num_bg,
+})))
 
-const technologies = [
-  'Laravel', 'Vue.js', 'Nuxt', 'React', 'Flutter',
-  'WinDev', 'WebDev', 'HFSQL', 'MySQL', 'PostgreSQL',
-  'SQLite', 'Docker', 'Nginx', 'Ubuntu Server', 'Claude AI',
-  'Filament', 'Tailwind CSS',
-]
+const { data: rawTechnologies } = await useFetch<any[]>(`${config.public.apiBase}/v1/technologies`)
+const technologies = computed(() => (rawTechnologies.value ?? []).map((t: any) => t.nom))
 </script>
+
+<style scoped>
+@keyframes techMarquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.tech-marquee-track {
+  width: max-content;
+  animation: techMarquee 30s linear infinite;
+}
+
+.tech-marquee-track:hover {
+  animation-play-state: paused;
+}
+</style>

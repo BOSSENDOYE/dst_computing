@@ -12,7 +12,7 @@
     </div>
 
     <!-- Article -->
-    <article class="pb-20">
+    <article v-if="article" class="pb-20">
       <div class="section-container max-w-3xl">
 
         <!-- Meta -->
@@ -55,63 +55,79 @@
 
       </div>
     </article>
+
+    <!-- 404 article -->
+    <div v-else class="pb-20 pt-8">
+      <div class="section-container max-w-3xl text-center">
+        <p class="text-dst-gray text-lg">Cet article n'existe pas ou a été déplacé.</p>
+        <NuxtLink to="/blog" class="mt-6 inline-flex items-center gap-2 text-dst-blue hover:underline text-sm">
+          Retour au blog
+        </NuxtLink>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 const route = useRoute()
+const config = useRuntimeConfig()
 
-// En production, fetcher depuis l'API : await $fetch(`/api/v1/articles/${route.params.slug}`)
-// Ici on utilise des données statiques pour la démo
-const articles: Record<string, any> = {
-  'digitalisation-pharmacies-senegal': {
-    titre: 'La digitalisation des pharmacies au Sénégal : enjeux et solutions',
-    categorie: 'Secteur Santé',
-    auteur: 'Équipe DST Computing',
-    date: '10 mai 2025',
-    tempsLecture: '5 min de lecture',
-    emoji: '💊',
-    heroBg: 'bg-blue-100',
-    contenu: `
-      <p>La gestion d'une pharmacie au Sénégal est un exercice complexe qui mêle impératifs réglementaires, gestion des stocks et service au patient. Longtemps réalisée sur papier ou via des tableurs basiques, cette gestion se digitalise progressivement.</p>
-      <h2>Les défis des officines sénégalaises</h2>
-      <p>Les pharmacies font face à plusieurs défis quotidiens :</p>
-      <ul>
-        <li>La gestion des péremptions et des stocks critiques</li>
-        <li>Le suivi des ordonnances et des patients chroniques</li>
-        <li>La conformité avec les exigences de la DPM (Direction de la Pharmacie et du Médicament)</li>
-        <li>La facturation et les remboursements</li>
-      </ul>
-      <h2>Notre solution : SAYCURE</h2>
-      <p>C'est pour répondre à ces besoins que DST Computing a développé SAYCURE, un logiciel de gestion complet pour les officines. En quelques chiffres :</p>
-      <ul>
-        <li><strong>15+ pharmacies</strong> utilisent SAYCURE activement au Sénégal</li>
-        <li><strong>-40% de ruptures de stock</strong> grâce aux alertes automatiques</li>
-        <li><strong>99.9% de disponibilité</strong> même lors de coupures internet</li>
-      </ul>
-      <h2>Conclusion</h2>
-      <p>La digitalisation des pharmacies n'est plus une option mais une nécessité. Les officines qui adoptent des logiciels adaptés gagnent en efficacité, réduisent leurs pertes et offrent un meilleur service à leurs patients.</p>
-    `,
-  },
+// Style visuel par catégorie (non stocké en DB)
+const categoryStyle: Record<string, { emoji: string; heroBg: string }> = {
+  'Secteur Santé':             { emoji: '💊', heroBg: 'bg-blue-100' },
+  'Intelligence Artificielle': { emoji: '🤖', heroBg: 'bg-purple-100' },
+  'Cybersécurité':             { emoji: '🔒', heroBg: 'bg-red-100' },
+  'Développement Web':         { emoji: '💻', heroBg: 'bg-indigo-100' },
+  'Gestion Documentaire':      { emoji: '📁', heroBg: 'bg-teal-100' },
+  'Infrastructure IT':         { emoji: '🖥️', heroBg: 'bg-gray-100' },
 }
 
+const { data: rawArticle } = await useFetch<any>(
+  `${config.public.apiBase}/v1/articles/${route.params.slug}`,
+  { default: () => null }
+)
+
 const article = computed(() => {
-  const slug = route.params.slug as string
-  return articles[slug] ?? {
-    titre: 'Article non trouvé',
-    categorie: '',
-    auteur: 'DST Computing',
-    date: '',
-    tempsLecture: '',
-    emoji: '📝',
-    heroBg: 'bg-gray-100',
-    contenu: '<p>Cet article n\'existe pas ou a été déplacé.</p>',
+  const a = rawArticle.value
+  if (!a) return null
+  const style = categoryStyle[a.categorie] ?? { emoji: '📝', heroBg: 'bg-gray-100' }
+  return {
+    titre: a.titre,
+    categorie: a.categorie,
+    auteur: a.auteur ?? 'Équipe DST Computing',
+    date: a.publie_le ? new Date(a.publie_le).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) : '',
+    tempsLecture: a.temps_lecture ? `${a.temps_lecture} de lecture` : '',
+    contenu: a.contenu,
+    emoji: style.emoji,
+    heroBg: style.heroBg,
   }
 })
 
 useSeoMeta({
-  title: () => `${article.value.titre} — Blog DST Computing`,
-  description: () => article.value.extrait ?? article.value.titre,
+  title: () => article.value ? `${article.value.titre} — Blog DST Computing Dakar` : 'Blog IT — DST Computing, Dakar',
+  description: () => rawArticle.value?.extrait ?? `${rawArticle.value?.titre} — Conseils et actualités IT par DST Computing, société informatique à Dakar, Sénégal.` ?? '',
+  ogTitle: () => article.value?.titre ?? 'Blog DST Computing',
+  ogDescription: () => rawArticle.value?.extrait ?? '',
+  ogType: 'article',
+  ogImage: () => rawArticle.value?.image_url ?? 'https://www.dstcomputing.sn/og-image.jpg',
+  twitterCard: 'summary_large_image',
+})
+useHead({
+  link: [{ rel: 'canonical', href: () => `https://www.dstcomputing.sn/blog/${rawArticle.value?.slug ?? ''}` }],
+  script: [{
+    type: 'application/ld+json',
+    innerHTML: () => JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BlogPosting',
+      headline: rawArticle.value?.titre ?? '',
+      description: rawArticle.value?.extrait ?? '',
+      image: rawArticle.value?.image_url ?? 'https://www.dstcomputing.sn/og-image.jpg',
+      datePublished: rawArticle.value?.published_at ?? '',
+      author: { '@type': 'Organization', name: 'DST Computing', url: 'https://www.dstcomputing.sn' },
+      publisher: { '@type': 'Organization', name: 'DST Computing', logo: { '@type': 'ImageObject', url: 'https://www.dstcomputing.sn/icone.png' } },
+      mainEntityOfPage: { '@type': 'WebPage', '@id': `https://www.dstcomputing.sn/blog/${rawArticle.value?.slug ?? ''}` },
+    }),
+  }],
 })
 </script>
 

@@ -1,11 +1,17 @@
 <?php
 use App\Http\Controllers\Api\ArticleController;
+use App\Http\Controllers\Api\AvantageController;
 use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\DevisController;
 use App\Http\Controllers\Api\MembreEquipeController;
+use App\Http\Controllers\Api\MissionItemController;
 use App\Http\Controllers\Api\ProduitController;
 use App\Http\Controllers\Api\ServiceController;
+use App\Http\Controllers\Api\StatController;
+use App\Http\Controllers\Api\PartenaireController;
+use App\Http\Controllers\Api\TechnologieController;
 use App\Http\Controllers\Api\TemoignageController;
+use App\Http\Controllers\Api\ValeurController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +24,14 @@ Route::prefix('v1')->group(function () {
     Route::get('/equipe', [MembreEquipeController::class, 'index']);
     Route::get('/articles', [ArticleController::class, 'index']);
     Route::get('/articles/{slug}', [ArticleController::class, 'show']);
+
+    // Paramètres / données de page
+    Route::get('/stats', [StatController::class, 'index']);
+    Route::get('/avantages', [AvantageController::class, 'index']);
+    Route::get('/mission-items', [MissionItemController::class, 'index']);
+    Route::get('/valeurs', [ValeurController::class, 'index']);
+    Route::get('/technologies', [TechnologieController::class, 'index']);
+    Route::get('/partenaires', [PartenaireController::class, 'index']);
 
     // Formulaires
     Route::post('/devis', [DevisController::class, 'store'])->middleware('throttle:5,1');

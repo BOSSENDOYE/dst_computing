@@ -1,0 +1,743 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <!-- Fond salle serveur très sombre -->
+    <linearGradient id="room-bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#02050f"/>
+      <stop offset="40%"  stop-color="#040c1e"/>
+      <stop offset="100%" stop-color="#020408"/>
+    </linearGradient>
+
+    <!-- Glow bleu froid (lumière LED rack) -->
+    <radialGradient id="rack-glow-blue" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#1d4ed8" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Glow cyan (intérieur rack) -->
+    <radialGradient id="rack-glow-cyan" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#06b6d4" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#06b6d4" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Sol réfléchissant -->
+    <linearGradient id="floor-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#0a1628" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#020408" stop-opacity="1"/>
+    </linearGradient>
+
+    <!-- Gradient rack (corps) -->
+    <linearGradient id="rack-body" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#0a0f1e"/>
+      <stop offset="50%"  stop-color="#111827"/>
+      <stop offset="100%" stop-color="#0a0f1e"/>
+    </linearGradient>
+
+    <!-- Gradient rack avant (façade) -->
+    <linearGradient id="rack-front" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#0d1424"/>
+      <stop offset="30%"  stop-color="#1a2035"/>
+      <stop offset="70%"  stop-color="#1a2035"/>
+      <stop offset="100%" stop-color="#0d1424"/>
+    </linearGradient>
+
+    <!-- Lumière ambiante bleue du plafond -->
+    <radialGradient id="ceiling-light" cx="50%" cy="0%" r="70%">
+      <stop offset="0%"   stop-color="#1e3a8a" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#020510" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Reflet sol rack -->
+    <linearGradient id="floor-reflect" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#06b6d4" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#06b6d4" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Filtre glow LED -->
+    <filter id="led-glow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="led-glow-sm" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="rack-light-glow" x="-50%" y="-20%" width="200%" height="140%">
+      <feGaussianBlur stdDeviation="18" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="ambient-glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="40"/>
+    </filter>
+  </defs>
+
+  <!-- ════════════ FOND SALLE ════════════ -->
+  <rect width="1440" height="900" fill="url(#room-bg)"/>
+
+  <!-- Lumière plafond -->
+  <rect width="1440" height="900" fill="url(#ceiling-light)"/>
+
+  <!-- Plafond (structure) -->
+  <rect x="0" y="0" width="1440" height="18" fill="#06080f"/>
+  <rect x="0" y="0" width="1440" height="2"  fill="#0d1628"/>
+
+  <!-- Rails plafond (cable management) -->
+  <g fill="#0a1020" stroke="#1a2535" stroke-width="0.5" opacity="0.7">
+    <rect x="0"   y="8" width="1440" height="8"/>
+    <rect x="160" y="0" width="4"    height="18"/>
+    <rect x="320" y="0" width="4"    height="18"/>
+    <rect x="480" y="0" width="4"    height="18"/>
+    <rect x="640" y="0" width="4"    height="18"/>
+    <rect x="800" y="0" width="4"    height="18"/>
+    <rect x="960" y="0" width="4"    height="18"/>
+    <rect x="1120" y="0" width="4"   height="18"/>
+    <rect x="1280" y="0" width="4"   height="18"/>
+  </g>
+
+  <!-- Sol dallé -->
+  <rect x="0" y="760" width="1440" height="140" fill="url(#floor-grad)"/>
+  <!-- Lignes dalles sol -->
+  <g stroke="#0e1a2e" stroke-width="0.8" opacity="0.8">
+    <line x1="0" y1="760" x2="1440" y2="760"/>
+    <line x1="0" y1="780" x2="1440" y2="780"/>
+    <line x1="0" y1="800" x2="1440" y2="800"/>
+    <line x1="0" y1="820" x2="1440" y2="820"/>
+    <line x1="0" y1="840" x2="1440" y2="840"/>
+    <!-- Verticales dalles -->
+    <line x1="180" y1="760" x2="180" y2="900"/>
+    <line x1="360" y1="760" x2="360" y2="900"/>
+    <line x1="540" y1="760" x2="540" y2="900"/>
+    <line x1="720" y1="760" x2="720" y2="900"/>
+    <line x1="900" y1="760" x2="900" y2="900"/>
+    <line x1="1080" y1="760" x2="1080" y2="900"/>
+    <line x1="1260" y1="760" x2="1260" y2="900"/>
+  </g>
+
+  <!-- ════════════ MACRO : RACKS ARRIÈRE-PLAN (rangée du fond) ════════════ -->
+  <!-- Rack BG 1 -->
+  <g opacity="0.35">
+    <rect x="90"  y="120" width="70" height="580" fill="#0a0d18" rx="2"/>
+    <rect x="93"  y="125" width="64" height="570" fill="#0d1220" rx="1"/>
+    <g fill="#162038" opacity="0.8">
+      <rect x="95"  y="130" width="60" height="6" rx="1"/>
+      <rect x="95"  y="140" width="60" height="6" rx="1"/>
+      <rect x="95"  y="150" width="60" height="6" rx="1"/>
+      <rect x="95"  y="160" width="60" height="12" rx="1"/>
+      <rect x="95"  y="176" width="60" height="6" rx="1"/>
+      <rect x="95"  y="186" width="60" height="6" rx="1"/>
+      <rect x="95"  y="196" width="60" height="12" rx="1"/>
+      <rect x="95"  y="212" width="60" height="6" rx="1"/>
+    </g>
+    <!-- LEDs rack bg 1 -->
+    <g fill="#00ff88" opacity="0.5" filter="url(#led-glow-sm)">
+      <circle cx="148" cy="133" r="1.5"/>
+      <circle cx="148" cy="143" r="1.5"/>
+      <circle cx="148" cy="163" r="1.5"/>
+      <circle cx="148" cy="179" r="1.5"/>
+    </g>
+  </g>
+
+  <!-- Rack BG 2 -->
+  <g opacity="0.35">
+    <rect x="1280" y="120" width="70" height="580" fill="#0a0d18" rx="2"/>
+    <rect x="1283" y="125" width="64" height="570" fill="#0d1220" rx="1"/>
+    <g fill="#162038" opacity="0.8">
+      <rect x="1285" y="130" width="60" height="6" rx="1"/>
+      <rect x="1285" y="140" width="60" height="6" rx="1"/>
+      <rect x="1285" y="150" width="60" height="12" rx="1"/>
+      <rect x="1285" y="166" width="60" height="6" rx="1"/>
+      <rect x="1285" y="176" width="60" height="6" rx="1"/>
+    </g>
+    <g fill="#00ff88" opacity="0.5" filter="url(#led-glow-sm)">
+      <circle cx="1338" cy="133" r="1.5"/>
+      <circle cx="1338" cy="153" r="1.5"/>
+    </g>
+    <g fill="#f97316" opacity="0.6" filter="url(#led-glow-sm)">
+      <circle cx="1338" cy="169" r="1.5"/>
+    </g>
+  </g>
+
+  <!-- ════════════ RACKS PRINCIPAUX (rangée avant) ════════════ -->
+
+  <!-- ── RACK 1 (gauche) ── -->
+  <g>
+    <!-- Lueur ambiante bleue derrière le rack -->
+    <ellipse cx="270" cy="450" rx="120" ry="340" fill="#1d4ed8" opacity="0.08" filter="url(#ambient-glow)"/>
+
+    <!-- Corps rack -->
+    <rect x="180" y="80" width="180" height="700" fill="url(#rack-body)" rx="3"/>
+    <!-- Façade rack -->
+    <rect x="188" y="88" width="164" height="684" fill="url(#rack-front)" rx="2"/>
+    <!-- Bords métalliques -->
+    <rect x="180" y="80" width="6" height="700" fill="#0f1528" rx="1"/>
+    <rect x="354" y="80" width="6" height="700" fill="#0f1528" rx="1"/>
+    <!-- Vis coins -->
+    <g fill="#1a2540">
+      <circle cx="192" cy="94"  r="3.5"/>
+      <circle cx="348" cy="94"  r="3.5"/>
+      <circle cx="192" cy="756" r="3.5"/>
+      <circle cx="348" cy="756" r="3.5"/>
+    </g>
+
+    <!-- Unités serveur rack 1 -->
+    <!-- 1U servers (étagères) -->
+    <g fill="#111827">
+      <rect x="192" y="100" width="156" height="10" rx="1"/>
+      <rect x="192" y="115" width="156" height="10" rx="1"/>
+      <rect x="192" y="130" width="156" height="10" rx="1"/>
+    </g>
+    <!-- 2U servers -->
+    <g fill="#141d30">
+      <rect x="192" y="145" width="156" height="22" rx="1"/>
+      <rect x="192" y="172" width="156" height="22" rx="1"/>
+      <rect x="192" y="199" width="156" height="22" rx="1"/>
+      <rect x="192" y="226" width="156" height="22" rx="1"/>
+    </g>
+    <!-- Séparateurs 1U -->
+    <g fill="#111827">
+      <rect x="192" y="253" width="156" height="10" rx="1"/>
+      <rect x="192" y="268" width="156" height="10" rx="1"/>
+      <rect x="192" y="283" width="156" height="10" rx="1"/>
+    </g>
+    <!-- Switch/patch panel -->
+    <rect x="192" y="298" width="156" height="16" fill="#0c1525" rx="1"/>
+    <!-- Ports patch panel -->
+    <g fill="#06b6d4" opacity="0.6">
+      <rect x="196" y="303" width="6" height="6" rx="1"/>
+      <rect x="205" y="303" width="6" height="6" rx="1"/>
+      <rect x="214" y="303" width="6" height="6" rx="1"/>
+      <rect x="223" y="303" width="6" height="6" rx="1"/>
+      <rect x="232" y="303" width="6" height="6" rx="1"/>
+      <rect x="241" y="303" width="6" height="6" rx="1"/>
+      <rect x="250" y="303" width="6" height="6" rx="1"/>
+      <rect x="259" y="303" width="6" height="6" rx="1"/>
+      <rect x="268" y="303" width="6" height="6" rx="1"/>
+      <rect x="277" y="303" width="6" height="6" rx="1"/>
+      <rect x="286" y="303" width="6" height="6" rx="1"/>
+      <rect x="295" y="303" width="6" height="6" rx="1"/>
+      <rect x="304" y="303" width="6" height="6" rx="1"/>
+      <rect x="313" y="303" width="6" height="6" rx="1"/>
+      <rect x="322" y="303" width="6" height="6" rx="1"/>
+      <rect x="331" y="303" width="6" height="6" rx="1"/>
+    </g>
+    <!-- Plus de 2U servers bas -->
+    <g fill="#141d30">
+      <rect x="192" y="320" width="156" height="22" rx="1"/>
+      <rect x="192" y="347" width="156" height="22" rx="1"/>
+      <rect x="192" y="374" width="156" height="22" rx="1"/>
+      <rect x="192" y="401" width="156" height="22" rx="1"/>
+      <rect x="192" y="428" width="156" height="22" rx="1"/>
+      <rect x="192" y="455" width="156" height="22" rx="1"/>
+      <rect x="192" y="482" width="156" height="22" rx="1"/>
+      <rect x="192" y="509" width="156" height="22" rx="1"/>
+      <rect x="192" y="536" width="156" height="22" rx="1"/>
+      <rect x="192" y="563" width="156" height="22" rx="1"/>
+    </g>
+    <!-- Espace câbles bas -->
+    <rect x="192" y="590" width="156" height="40" fill="#0b1120" rx="1"/>
+    <!-- Câbles bas rack 1 -->
+    <g stroke="#1e40af" stroke-width="2" fill="none" opacity="0.7">
+      <path d="M200 630 Q205 660 200 700"/>
+      <path d="M212 630 Q218 655 214 700"/>
+      <path d="M224 630 Q230 650 228 700"/>
+      <path d="M240 630 Q245 660 238 700"/>
+    </g>
+    <g stroke="#06b6d4" stroke-width="2" fill="none" opacity="0.6">
+      <path d="M255 630 Q258 650 260 700"/>
+      <path d="M268 630 Q272 655 270 700"/>
+      <path d="M282 630 Q280 650 285 700"/>
+    </g>
+    <g stroke="#f97316" stroke-width="1.5" fill="none" opacity="0.5">
+      <path d="M298 630 Q302 658 296 700"/>
+      <path d="M312 630 Q315 645 318 700"/>
+      <path d="M326 630 Q330 655 332 700"/>
+      <path d="M340 630 Q338 648 344 700"/>
+    </g>
+
+    <!-- LEDs actives rack 1 -->
+    <g filter="url(#led-glow)">
+      <!-- Vert = OK -->
+      <g fill="#22c55e">
+        <circle cx="340" cy="105" r="2"/><circle cx="340" cy="120" r="2"/><circle cx="340" cy="135" r="2"/>
+        <circle cx="340" cy="155" r="2"/><circle cx="340" cy="182" r="2"/><circle cx="340" cy="209" r="2"/>
+        <circle cx="340" cy="329" r="2"/><circle cx="340" cy="356" r="2"/><circle cx="340" cy="383" r="2"/>
+        <circle cx="340" cy="410" r="2"/><circle cx="340" cy="437" r="2"/><circle cx="340" cy="491" r="2"/>
+        <circle cx="340" cy="518" r="2"/><circle cx="340" cy="545" r="2"/>
+      </g>
+      <!-- Bleu = réseau actif -->
+      <g fill="#38bdf8">
+        <circle cx="334" cy="155" r="2"/><circle cx="334" cy="182" r="2"/><circle cx="334" cy="329" r="2"/>
+        <circle cx="334" cy="437" r="2"/><circle cx="334" cy="518" r="2"/>
+      </g>
+      <!-- Orange = activité -->
+      <g fill="#f97316">
+        <circle cx="334" cy="105" r="2"/><circle cx="334" cy="209" r="2"/><circle cx="334" cy="356" r="2"/>
+        <circle cx="334" cy="464" r="2"/><circle cx="334" cy="545" r="2"/>
+      </g>
+      <!-- Rouge = alerte -->
+      <g fill="#ef4444">
+        <circle cx="340" cy="236" r="2"/><circle cx="334" cy="464" r="1.5"/>
+      </g>
+    </g>
+
+    <!-- Fente ventilation rack 1 -->
+    <g fill="#0a0f1e" opacity="0.6">
+      <rect x="192" y="636" width="156" height="3" rx="1"/>
+      <rect x="192" y="641" width="156" height="3" rx="1"/>
+      <rect x="192" y="646" width="156" height="3" rx="1"/>
+      <rect x="192" y="651" width="156" height="3" rx="1"/>
+    </g>
+    <!-- Lumière intérieure rack (bleue clair des ventilateurs) -->
+    <rect x="192" y="636" width="156" height="30" fill="#06b6d4" opacity="0.04"/>
+  </g>
+
+  <!-- ── RACK 2 (centre-gauche) ── -->
+  <g>
+    <ellipse cx="510" cy="450" rx="120" ry="340" fill="#06b6d4" opacity="0.07" filter="url(#ambient-glow)"/>
+    <rect x="420" y="80" width="180" height="700" fill="url(#rack-body)" rx="3"/>
+    <rect x="428" y="88" width="164" height="684" fill="url(#rack-front)" rx="2"/>
+    <rect x="420" y="80" width="6" height="700" fill="#0f1528" rx="1"/>
+    <rect x="594" y="80" width="6" height="700" fill="#0f1528" rx="1"/>
+    <g fill="#1a2540">
+      <circle cx="432" cy="94"  r="3.5"/>
+      <circle cx="588" cy="94"  r="3.5"/>
+      <circle cx="432" cy="756" r="3.5"/>
+      <circle cx="588" cy="756" r="3.5"/>
+    </g>
+
+    <!-- Unités rack 2 — storage/SAN -->
+    <g fill="#162030">
+      <!-- Gros stockage 4U -->
+      <rect x="432" y="100" width="156" height="40" rx="1"/>
+      <rect x="432" y="145" width="156" height="40" rx="1"/>
+      <rect x="432" y="190" width="156" height="40" rx="1"/>
+    </g>
+    <!-- Disques dans les unités storage -->
+    <g fill="#0e1a2a" stroke="#1a2a3e" stroke-width="0.5">
+      <!-- Rangée 1 disques -->
+      <rect x="436" y="104" width="14" height="32" rx="1"/>
+      <rect x="452" y="104" width="14" height="32" rx="1"/>
+      <rect x="468" y="104" width="14" height="32" rx="1"/>
+      <rect x="484" y="104" width="14" height="32" rx="1"/>
+      <rect x="500" y="104" width="14" height="32" rx="1"/>
+      <rect x="516" y="104" width="14" height="32" rx="1"/>
+      <rect x="532" y="104" width="14" height="32" rx="1"/>
+      <rect x="548" y="104" width="14" height="32" rx="1"/>
+      <rect x="564" y="104" width="14" height="32" rx="1"/>
+      <rect x="580" y="104" width="6"  height="32" rx="1"/>
+    </g>
+    <!-- LED disques actifs -->
+    <g filter="url(#led-glow-sm)">
+      <g fill="#06b6d4" opacity="0.8">
+        <circle cx="443" cy="136" r="1.5"/>
+        <circle cx="459" cy="136" r="1.5"/>
+        <circle cx="475" cy="136" r="1.5"/>
+        <circle cx="507" cy="136" r="1.5"/>
+        <circle cx="523" cy="136" r="1.5"/>
+        <circle cx="555" cy="136" r="1.5"/>
+        <circle cx="571" cy="136" r="1.5"/>
+      </g>
+      <g fill="#22c55e" opacity="0.8">
+        <circle cx="491" cy="136" r="1.5"/>
+        <circle cx="539" cy="136" r="1.5"/>
+        <circle cx="587" cy="136" r="1.5"/>
+      </g>
+    </g>
+
+    <!-- Rack 2 servers 2U -->
+    <g fill="#141d30">
+      <rect x="432" y="236" width="156" height="22" rx="1"/>
+      <rect x="432" y="263" width="156" height="22" rx="1"/>
+      <rect x="432" y="290" width="156" height="22" rx="1"/>
+      <rect x="432" y="317" width="156" height="22" rx="1"/>
+      <rect x="432" y="344" width="156" height="22" rx="1"/>
+      <rect x="432" y="371" width="156" height="22" rx="1"/>
+      <rect x="432" y="398" width="156" height="22" rx="1"/>
+      <rect x="432" y="425" width="156" height="22" rx="1"/>
+      <rect x="432" y="452" width="156" height="22" rx="1"/>
+      <rect x="432" y="479" width="156" height="22" rx="1"/>
+      <rect x="432" y="506" width="156" height="22" rx="1"/>
+      <rect x="432" y="533" width="156" height="22" rx="1"/>
+      <rect x="432" y="560" width="156" height="22" rx="1"/>
+    </g>
+
+    <!-- LEDs rack 2 -->
+    <g filter="url(#led-glow)">
+      <g fill="#22c55e">
+        <circle cx="580" cy="246" r="2"/><circle cx="580" cy="273" r="2"/>
+        <circle cx="580" cy="300" r="2"/><circle cx="580" cy="327" r="2"/>
+        <circle cx="580" cy="354" r="2"/><circle cx="580" cy="381" r="2"/>
+        <circle cx="580" cy="408" r="2"/><circle cx="580" cy="435" r="2"/>
+        <circle cx="580" cy="462" r="2"/><circle cx="580" cy="489" r="2"/>
+        <circle cx="580" cy="516" r="2"/><circle cx="580" cy="543" r="2"/>
+      </g>
+      <g fill="#38bdf8">
+        <circle cx="574" cy="246" r="2"/><circle cx="574" cy="300" r="2"/>
+        <circle cx="574" cy="381" r="2"/><circle cx="574" cy="462" r="2"/>
+        <circle cx="574" cy="543" r="2"/>
+      </g>
+      <g fill="#f97316">
+        <circle cx="574" cy="273" r="2"/><circle cx="574" cy="354" r="2"/>
+        <circle cx="574" cy="435" r="2"/><circle cx="574" cy="516" r="2"/>
+      </g>
+    </g>
+
+    <!-- Câbles rack 2 -->
+    <rect x="432" y="590" width="156" height="40" fill="#0b1120" rx="1"/>
+    <g stroke="#06b6d4" stroke-width="2" fill="none" opacity="0.7">
+      <path d="M440 630 Q444 658 438 700"/>
+      <path d="M452 630 Q456 650 455 700"/>
+      <path d="M464 630 Q468 660 462 700"/>
+      <path d="M478 630 Q480 648 482 700"/>
+    </g>
+    <g stroke="#1e40af" stroke-width="2" fill="none" opacity="0.7">
+      <path d="M495 630 Q498 655 494 700"/>
+      <path d="M510 630 Q514 660 508 700"/>
+      <path d="M525 630 Q528 645 528 700"/>
+    </g>
+    <g stroke="#f97316" stroke-width="1.5" fill="none" opacity="0.5">
+      <path d="M540 630 Q542 655 538 700"/>
+      <path d="M555 630 Q558 650 558 700"/>
+      <path d="M572 630 Q574 660 570 700"/>
+    </g>
+  </g>
+
+  <!-- ── RACK 3 (centre) ── -->
+  <g>
+    <ellipse cx="750" cy="450" rx="130" ry="350" fill="#1d4ed8" opacity="0.12" filter="url(#ambient-glow)"/>
+    <rect x="660" y="80" width="180" height="700" fill="url(#rack-body)" rx="3"/>
+    <rect x="668" y="88" width="164" height="684" fill="url(#rack-front)" rx="2"/>
+    <rect x="660" y="80" width="6" height="700" fill="#0f1528" rx="1"/>
+    <rect x="834" y="80" width="6" height="700" fill="#0f1528" rx="1"/>
+    <g fill="#1a2540">
+      <circle cx="672" cy="94"  r="3.5"/>
+      <circle cx="828" cy="94"  r="3.5"/>
+      <circle cx="672" cy="756" r="3.5"/>
+      <circle cx="828" cy="756" r="3.5"/>
+    </g>
+
+    <!-- Blade server (lame haute densité) -->
+    <rect x="668" y="100" width="164" height="80" fill="#0d1828" rx="1"/>
+    <g fill="#0a1220" stroke="#162035" stroke-width="0.5">
+      <rect x="672" y="104" width="38" height="18" rx="1"/>
+      <rect x="712" y="104" width="38" height="18" rx="1"/>
+      <rect x="752" y="104" width="38" height="18" rx="1"/>
+      <rect x="792" y="104" width="36" height="18" rx="1"/>
+      <rect x="672" y="124" width="38" height="18" rx="1"/>
+      <rect x="712" y="124" width="38" height="18" rx="1"/>
+      <rect x="752" y="124" width="38" height="18" rx="1"/>
+      <rect x="792" y="124" width="36" height="18" rx="1"/>
+      <rect x="672" y="144" width="38" height="18" rx="1"/>
+      <rect x="712" y="144" width="38" height="18" rx="1"/>
+      <rect x="752" y="144" width="38" height="18" rx="1"/>
+      <rect x="792" y="144" width="36" height="18" rx="1"/>
+    </g>
+    <!-- LEDs blade -->
+    <g filter="url(#led-glow-sm)">
+      <g fill="#22c55e" opacity="0.9">
+        <circle cx="707" cy="108" r="1.5"/><circle cx="747" cy="108" r="1.5"/>
+        <circle cx="787" cy="108" r="1.5"/><circle cx="825" cy="108" r="1.5"/>
+        <circle cx="707" cy="128" r="1.5"/><circle cx="747" cy="128" r="1.5"/>
+        <circle cx="787" cy="128" r="1.5"/><circle cx="825" cy="128" r="1.5"/>
+        <circle cx="707" cy="148" r="1.5"/><circle cx="747" cy="148" r="1.5"/>
+        <circle cx="787" cy="148" r="1.5"/>
+      </g>
+      <g fill="#f97316" opacity="0.8">
+        <circle cx="825" cy="148" r="1.5"/>
+      </g>
+    </g>
+
+    <!-- Network switches (lumières clignotantes) -->
+    <rect x="668" y="185" width="164" height="20" fill="#0a1828" rx="1"/>
+    <!-- Ports SFP switch -->
+    <g fill="#06b6d4" opacity="0.5">
+      <rect x="672" y="189" width="8"  height="8" rx="1"/>
+      <rect x="682" y="189" width="8"  height="8" rx="1"/>
+      <rect x="692" y="189" width="8"  height="8" rx="1"/>
+      <rect x="702" y="189" width="8"  height="8" rx="1"/>
+      <rect x="712" y="189" width="8"  height="8" rx="1"/>
+      <rect x="722" y="189" width="8"  height="8" rx="1"/>
+      <rect x="732" y="189" width="8"  height="8" rx="1"/>
+      <rect x="742" y="189" width="8"  height="8" rx="1"/>
+      <rect x="752" y="189" width="8"  height="8" rx="1"/>
+      <rect x="762" y="189" width="8"  height="8" rx="1"/>
+      <rect x="772" y="189" width="8"  height="8" rx="1"/>
+      <rect x="782" y="189" width="8"  height="8" rx="1"/>
+    </g>
+    <g fill="#38bdf8" opacity="0.8" filter="url(#led-glow-sm)">
+      <circle cx="802" cy="193" r="2"/>
+      <circle cx="812" cy="193" r="2"/>
+      <circle cx="822" cy="193" r="2"/>
+    </g>
+
+    <!-- 2U servers rack 3 -->
+    <g fill="#141d30">
+      <rect x="668" y="210" width="164" height="22" rx="1"/>
+      <rect x="668" y="237" width="164" height="22" rx="1"/>
+      <rect x="668" y="264" width="164" height="22" rx="1"/>
+      <rect x="668" y="291" width="164" height="22" rx="1"/>
+      <rect x="668" y="318" width="164" height="22" rx="1"/>
+      <rect x="668" y="345" width="164" height="22" rx="1"/>
+      <rect x="668" y="372" width="164" height="22" rx="1"/>
+      <rect x="668" y="399" width="164" height="22" rx="1"/>
+      <rect x="668" y="426" width="164" height="22" rx="1"/>
+      <rect x="668" y="453" width="164" height="22" rx="1"/>
+      <rect x="668" y="480" width="164" height="22" rx="1"/>
+      <rect x="668" y="507" width="164" height="22" rx="1"/>
+      <rect x="668" y="534" width="164" height="22" rx="1"/>
+      <rect x="668" y="561" width="164" height="22" rx="1"/>
+    </g>
+
+    <!-- LEDs rack 3 (très actif) -->
+    <g filter="url(#led-glow)">
+      <g fill="#22c55e">
+        <circle cx="820" cy="220" r="2"/><circle cx="820" cy="247" r="2"/>
+        <circle cx="820" cy="274" r="2"/><circle cx="820" cy="301" r="2"/>
+        <circle cx="820" cy="328" r="2"/><circle cx="820" cy="355" r="2"/>
+        <circle cx="820" cy="382" r="2"/><circle cx="820" cy="409" r="2"/>
+        <circle cx="820" cy="436" r="2"/><circle cx="820" cy="463" r="2"/>
+        <circle cx="820" cy="490" r="2"/><circle cx="820" cy="517" r="2"/>
+        <circle cx="820" cy="544" r="2"/><circle cx="820" cy="571" r="2"/>
+      </g>
+      <g fill="#38bdf8">
+        <circle cx="814" cy="220" r="2"/><circle cx="814" cy="274" r="2"/>
+        <circle cx="814" cy="355" r="2"/><circle cx="814" cy="409" r="2"/>
+        <circle cx="814" cy="490" r="2"/><circle cx="814" cy="544" r="2"/>
+      </g>
+      <g fill="#f97316">
+        <circle cx="814" cy="247" r="2"/><circle cx="814" cy="328" r="2"/>
+        <circle cx="814" cy="382" r="2"/><circle cx="814" cy="463" r="2"/>
+        <circle cx="814" cy="517" r="2"/>
+      </g>
+    </g>
+
+    <!-- Câbles rack 3 -->
+    <rect x="668" y="590" width="164" height="40" fill="#0b1120" rx="1"/>
+    <g stroke="#06b6d4" stroke-width="2" fill="none" opacity="0.8">
+      <path d="M675 630 Q678 655 672 700"/>
+      <path d="M688 630 Q692 660 685 700"/>
+      <path d="M701 630 Q705 648 700 700"/>
+    </g>
+    <g stroke="#1e40af" stroke-width="2.5" fill="none" opacity="0.8">
+      <path d="M715 630 Q718 652 715 700"/>
+      <path d="M728 630 Q732 660 726 700"/>
+      <path d="M742 630 Q745 645 744 700"/>
+      <path d="M756 630 Q758 655 752 700"/>
+    </g>
+    <g stroke="#f97316" stroke-width="2" fill="none" opacity="0.6">
+      <path d="M770 630 Q774 658 768 700"/>
+      <path d="M784 630 Q786 645 786 700"/>
+      <path d="M798 630 Q800 655 796 700"/>
+      <path d="M812 630 Q814 648 812 700"/>
+    </g>
+  </g>
+
+  <!-- ── RACK 4 (centre-droit) ── -->
+  <g>
+    <ellipse cx="990" cy="450" rx="120" ry="340" fill="#06b6d4" opacity="0.07" filter="url(#ambient-glow)"/>
+    <rect x="900" y="80" width="180" height="700" fill="url(#rack-body)" rx="3"/>
+    <rect x="908" y="88" width="164" height="684" fill="url(#rack-front)" rx="2"/>
+    <rect x="900" y="80" width="6" height="700" fill="#0f1528" rx="1"/>
+    <rect x="1074" y="80" width="6" height="700" fill="#0f1528" rx="1"/>
+    <g fill="#1a2540">
+      <circle cx="912" cy="94"  r="3.5"/>
+      <circle cx="1068" cy="94" r="3.5"/>
+      <circle cx="912" cy="756" r="3.5"/>
+      <circle cx="1068" cy="756" r="3.5"/>
+    </g>
+
+    <g fill="#141d30">
+      <rect x="908" y="100" width="164" height="22" rx="1"/>
+      <rect x="908" y="127" width="164" height="22" rx="1"/>
+      <rect x="908" y="154" width="164" height="22" rx="1"/>
+      <rect x="908" y="181" width="164" height="22" rx="1"/>
+      <rect x="908" y="208" width="164" height="22" rx="1"/>
+      <rect x="908" y="235" width="164" height="22" rx="1"/>
+      <rect x="908" y="262" width="164" height="22" rx="1"/>
+      <rect x="908" y="289" width="164" height="22" rx="1"/>
+      <rect x="908" y="316" width="164" height="22" rx="1"/>
+      <rect x="908" y="343" width="164" height="22" rx="1"/>
+      <rect x="908" y="370" width="164" height="22" rx="1"/>
+      <rect x="908" y="397" width="164" height="22" rx="1"/>
+      <rect x="908" y="424" width="164" height="22" rx="1"/>
+      <rect x="908" y="451" width="164" height="22" rx="1"/>
+      <rect x="908" y="478" width="164" height="22" rx="1"/>
+      <rect x="908" y="505" width="164" height="22" rx="1"/>
+      <rect x="908" y="532" width="164" height="22" rx="1"/>
+      <rect x="908" y="559" width="164" height="22" rx="1"/>
+    </g>
+
+    <g filter="url(#led-glow)">
+      <g fill="#22c55e">
+        <circle cx="1060" cy="110" r="2"/><circle cx="1060" cy="137" r="2"/>
+        <circle cx="1060" cy="164" r="2"/><circle cx="1060" cy="191" r="2"/>
+        <circle cx="1060" cy="218" r="2"/><circle cx="1060" cy="245" r="2"/>
+        <circle cx="1060" cy="272" r="2"/><circle cx="1060" cy="299" r="2"/>
+        <circle cx="1060" cy="326" r="2"/><circle cx="1060" cy="353" r="2"/>
+        <circle cx="1060" cy="380" r="2"/><circle cx="1060" cy="407" r="2"/>
+        <circle cx="1060" cy="434" r="2"/><circle cx="1060" cy="461" r="2"/>
+        <circle cx="1060" cy="488" r="2"/><circle cx="1060" cy="515" r="2"/>
+        <circle cx="1060" cy="542" r="2"/><circle cx="1060" cy="569" r="2"/>
+      </g>
+      <g fill="#38bdf8">
+        <circle cx="1054" cy="110" r="2"/><circle cx="1054" cy="191" r="2"/>
+        <circle cx="1054" cy="272" r="2"/><circle cx="1054" cy="353" r="2"/>
+        <circle cx="1054" cy="434" r="2"/><circle cx="1054" cy="515" r="2"/>
+      </g>
+      <g fill="#f97316">
+        <circle cx="1054" cy="137" r="2"/><circle cx="1054" cy="218" r="2"/>
+        <circle cx="1054" cy="299" r="2"/><circle cx="1054" cy="380" r="2"/>
+        <circle cx="1054" cy="461" r="2"/><circle cx="1054" cy="542" r="2"/>
+      </g>
+    </g>
+
+    <rect x="908" y="590" width="164" height="40" fill="#0b1120" rx="1"/>
+    <g stroke="#06b6d4" stroke-width="2" fill="none" opacity="0.7">
+      <path d="M915 630 Q918 655 912 700"/>
+      <path d="M928 630 Q932 650 928 700"/>
+      <path d="M942 630 Q945 660 940 700"/>
+    </g>
+    <g stroke="#1e40af" stroke-width="2" fill="none" opacity="0.7">
+      <path d="M958 630 Q960 645 958 700"/>
+      <path d="M972 630 Q975 655 970 700"/>
+      <path d="M986 630 Q990 648 986 700"/>
+    </g>
+    <g stroke="#f97316" stroke-width="1.5" fill="none" opacity="0.5">
+      <path d="M1000 630 Q1004 660 998 700"/>
+      <path d="M1014 630 Q1016 645 1016 700"/>
+      <path d="M1028 630 Q1030 655 1026 700"/>
+      <path d="M1042 630 Q1044 648 1042 700"/>
+      <path d="M1058 630 Q1060 660 1056 700"/>
+    </g>
+  </g>
+
+  <!-- ── RACK 5 (droite) ── -->
+  <g>
+    <ellipse cx="1230" cy="450" rx="120" ry="340" fill="#1d4ed8" opacity="0.09" filter="url(#ambient-glow)"/>
+    <rect x="1140" y="80" width="180" height="700" fill="url(#rack-body)" rx="3"/>
+    <rect x="1148" y="88" width="164" height="684" fill="url(#rack-front)" rx="2"/>
+    <rect x="1140" y="80" width="6" height="700" fill="#0f1528" rx="1"/>
+    <rect x="1314" y="80" width="6" height="700" fill="#0f1528" rx="1"/>
+    <g fill="#1a2540">
+      <circle cx="1152" cy="94"  r="3.5"/>
+      <circle cx="1308" cy="94"  r="3.5"/>
+      <circle cx="1152" cy="756" r="3.5"/>
+      <circle cx="1308" cy="756" r="3.5"/>
+    </g>
+
+    <!-- UPS / alimentation (grosse unité) -->
+    <rect x="1148" y="100" width="164" height="60" fill="#0c1522" rx="1"/>
+    <rect x="1152" y="104" width="100" height="52" fill="#0a1020" rx="1"/>
+    <!-- Ventilateurs UPS -->
+    <g fill="#162030" stroke="#1a2540" stroke-width="0.5">
+      <circle cx="1185" cy="130" r="14"/>
+      <circle cx="1215" cy="130" r="14"/>
+    </g>
+    <g fill="#0e1828">
+      <circle cx="1185" cy="130" r="8"/>
+      <circle cx="1215" cy="130" r="8"/>
+    </g>
+    <g fill="#162030" opacity="0.6">
+      <circle cx="1185" cy="130" r="4"/>
+      <circle cx="1215" cy="130" r="4"/>
+    </g>
+    <!-- Indicateurs UPS -->
+    <g filter="url(#led-glow-sm)">
+      <circle cx="1282" cy="115" r="3" fill="#22c55e"/>
+      <circle cx="1293" cy="115" r="3" fill="#22c55e"/>
+      <circle cx="1282" cy="130" r="3" fill="#38bdf8"/>
+      <circle cx="1293" cy="130" r="3" fill="#f97316"/>
+      <circle cx="1282" cy="145" r="3" fill="#22c55e"/>
+    </g>
+
+    <!-- Servers rack 5 -->
+    <g fill="#141d30">
+      <rect x="1148" y="165" width="164" height="22" rx="1"/>
+      <rect x="1148" y="192" width="164" height="22" rx="1"/>
+      <rect x="1148" y="219" width="164" height="22" rx="1"/>
+      <rect x="1148" y="246" width="164" height="22" rx="1"/>
+      <rect x="1148" y="273" width="164" height="22" rx="1"/>
+      <rect x="1148" y="300" width="164" height="22" rx="1"/>
+      <rect x="1148" y="327" width="164" height="22" rx="1"/>
+      <rect x="1148" y="354" width="164" height="22" rx="1"/>
+      <rect x="1148" y="381" width="164" height="22" rx="1"/>
+      <rect x="1148" y="408" width="164" height="22" rx="1"/>
+      <rect x="1148" y="435" width="164" height="22" rx="1"/>
+      <rect x="1148" y="462" width="164" height="22" rx="1"/>
+      <rect x="1148" y="489" width="164" height="22" rx="1"/>
+      <rect x="1148" y="516" width="164" height="22" rx="1"/>
+      <rect x="1148" y="543" width="164" height="22" rx="1"/>
+      <rect x="1148" y="570" width="164" height="22" rx="1"/>
+    </g>
+
+    <g filter="url(#led-glow)">
+      <g fill="#22c55e">
+        <circle cx="1300" cy="175" r="2"/><circle cx="1300" cy="202" r="2"/>
+        <circle cx="1300" cy="229" r="2"/><circle cx="1300" cy="256" r="2"/>
+        <circle cx="1300" cy="283" r="2"/><circle cx="1300" cy="310" r="2"/>
+        <circle cx="1300" cy="337" r="2"/><circle cx="1300" cy="364" r="2"/>
+        <circle cx="1300" cy="391" r="2"/><circle cx="1300" cy="418" r="2"/>
+        <circle cx="1300" cy="445" r="2"/><circle cx="1300" cy="472" r="2"/>
+        <circle cx="1300" cy="499" r="2"/><circle cx="1300" cy="526" r="2"/>
+        <circle cx="1300" cy="553" r="2"/><circle cx="1300" cy="580" r="2"/>
+      </g>
+      <g fill="#38bdf8">
+        <circle cx="1294" cy="175" r="2"/><circle cx="1294" cy="256" r="2"/>
+        <circle cx="1294" cy="337" r="2"/><circle cx="1294" cy="418" r="2"/>
+        <circle cx="1294" cy="499" r="2"/><circle cx="1294" cy="580" r="2"/>
+      </g>
+      <g fill="#f97316">
+        <circle cx="1294" cy="202" r="2"/><circle cx="1294" cy="283" r="2"/>
+        <circle cx="1294" cy="364" r="2"/><circle cx="1294" cy="445" r="2"/>
+        <circle cx="1294" cy="526" r="2"/>
+      </g>
+    </g>
+
+    <rect x="1148" y="597" width="164" height="40" fill="#0b1120" rx="1"/>
+    <g stroke="#1e40af" stroke-width="2" fill="none" opacity="0.8">
+      <path d="M1155 637 Q1158 660 1152 700"/>
+      <path d="M1168 637 Q1172 652 1168 700"/>
+      <path d="M1182 637 Q1185 660 1180 700"/>
+      <path d="M1196 637 Q1198 645 1198 700"/>
+    </g>
+    <g stroke="#06b6d4" stroke-width="2" fill="none" opacity="0.7">
+      <path d="M1212 637 Q1215 655 1210 700"/>
+      <path d="M1226 637 Q1230 648 1228 700"/>
+      <path d="M1242 637 Q1244 660 1240 700"/>
+    </g>
+    <g stroke="#f97316" stroke-width="1.5" fill="none" opacity="0.5">
+      <path d="M1258 637 Q1260 650 1258 700"/>
+      <path d="M1274 637 Q1276 660 1272 700"/>
+      <path d="M1290 637 Q1292 648 1290 700"/>
+    </g>
+  </g>
+
+  <!-- ════════════ ALLÉES ET SOL RÉFLÉCHISSANT ════════════ -->
+  <!-- Reflets lumineux LED sur le sol (cyan/bleu) -->
+  <g opacity="0.15">
+    <!-- Reflets rack 1 -->
+    <rect x="188" y="760" width="164" height="80" fill="url(#floor-reflect)"/>
+    <!-- Reflets rack 2 -->
+    <rect x="428" y="760" width="164" height="80" fill="url(#floor-reflect)"/>
+    <!-- Reflets rack 3 -->
+    <rect x="668" y="760" width="164" height="80" fill="url(#floor-reflect)"/>
+    <!-- Reflets rack 4 -->
+    <rect x="908" y="760" width="164" height="80" fill="url(#floor-reflect)"/>
+    <!-- Reflets rack 5 -->
+    <rect x="1148" y="760" width="164" height="80" fill="url(#floor-reflect)"/>
+  </g>
+
+  <!-- ════════════ PERSPECTIVE / ALLÉE DU MILIEU ════════════ -->
+  <!-- Ligne de perspective sol -->
+  <line x1="0" y1="760" x2="1440" y2="760" stroke="#0e1a2e" stroke-width="1.5" opacity="0.8"/>
+
+  <!-- ════════════ OVERLAY FINAL ════════════ -->
+  <!-- Vignette bords pour profondeur -->
+  <radialGradient id="vignette" cx="50%" cy="50%" r="70%">
+    <stop offset="0%"   stop-color="black" stop-opacity="0"/>
+    <stop offset="100%" stop-color="black" stop-opacity="0.65"/>
+  </radialGradient>
+  <rect width="1440" height="900" fill="url(#vignette)"/>
+
+  <!-- Léger overlay bleu pour cohérence couleur thème -->
+  <rect width="1440" height="900" fill="#0a1628" opacity="0.15"/>
+</svg>

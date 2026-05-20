@@ -1,12 +1,21 @@
 <template>
-  <section class="relative min-h-screen flex items-center bg-hero-pattern overflow-hidden">
+  <section class="relative flex items-center overflow-hidden" style="background-color: #0F1A3E; min-height: 70vh;">
 
-    <!-- Grille décorative en fond -->
-    <div class="absolute inset-0 opacity-10" aria-hidden="true">
-      <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0); background-size: 40px 40px;" />
-    </div>
+    <!-- Image de fond -->
+    <div
+      class="absolute inset-0 bg-cover bg-center bg-no-repeat"
+      style="background-image: url('/BACKGROUND.jpg');"
+      aria-hidden="true"
+    />
 
-    <!-- Formes décoratives -->
+    <!-- Overlay gradient pour lisibilité texte sur photo data center -->
+    <div
+      class="absolute inset-0"
+      style="background: linear-gradient(105deg, rgba(5,10,30,0.82) 0%, rgba(15,26,62,0.65) 50%, rgba(5,10,25,0.50) 100%);"
+      aria-hidden="true"
+    />
+
+    <!-- Formes décoratives flottantes (conservées) -->
     <div class="absolute top-20 right-0 w-96 h-96 bg-dst-blue/20 rounded-full blur-3xl" aria-hidden="true" />
     <div class="absolute bottom-10 left-10 w-64 h-64 bg-dst-orange/10 rounded-full blur-3xl" aria-hidden="true" />
 
@@ -34,15 +43,35 @@
 
         <!-- CTA buttons -->
         <div class="flex flex-wrap gap-4 mb-16 animate-fade-in-up animate-delay-300">
-          <NuxtLink to="/services" class="btn-primary text-base px-8 py-4">
+
+          <!-- Voir nos services — orange gradient pill -->
+          <NuxtLink
+            to="/services"
+            class="group inline-flex items-center gap-3 text-white font-bold text-base px-8 py-4 rounded-full transition-all duration-300 hover:-translate-y-1"
+            style="background: linear-gradient(135deg, #f97316 0%, #ea580c 100%); box-shadow: 0 6px 24px rgba(249,115,22,0.45);"
+          >
             Voir nos services
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg>
+            <span class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-white/30 transition-colors">
+              <svg class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </span>
           </NuxtLink>
-          <NuxtLink to="/devis" class="btn-secondary text-base px-8 py-4">
+
+          <!-- Demander un devis — contour blanc pill -->
+          <NuxtLink
+            to="/devis"
+            class="group inline-flex items-center gap-3 font-bold text-base px-8 py-4 rounded-full border-2 border-white/60 text-white transition-all duration-300 hover:bg-white hover:text-dst-navy hover:border-white hover:-translate-y-1"
+            style="background: rgba(255,255,255,0.08); backdrop-filter: blur(8px);"
+          >
             Demander un devis gratuit
+            <span class="w-8 h-8 rounded-full border border-white/40 flex items-center justify-center group-hover:border-dst-navy/30 transition-colors">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+              </svg>
+            </span>
           </NuxtLink>
+
         </div>
 
         <!-- Stats rapides -->
@@ -52,7 +81,7 @@
             :key="stat.label"
             class="text-center"
           >
-            <p class="font-heading text-3xl font-bold text-white mb-1">{{ stat.value }}</p>
+            <p class="font-heading text-3xl font-bold text-white mb-1">{{ stat.valeur }}</p>
             <p class="text-white/60 text-sm">{{ stat.label }}</p>
           </div>
         </div>
@@ -69,10 +98,7 @@
 </template>
 
 <script setup lang="ts">
-const stats = [
-  { value: '6+', label: "Ans d'expérience" },
-  { value: '50+', label: 'Projets livrés' },
-  { value: '30+', label: 'Clients actifs' },
-  { value: '5', label: 'Secteurs couverts' },
-]
+const config = useRuntimeConfig()
+const { data: rawStats } = await useFetch<any[]>(`${config.public.apiBase}/v1/stats?contexte=hero`)
+const stats = computed(() => rawStats.value ?? [])
 </script>

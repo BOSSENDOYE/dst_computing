@@ -57,8 +57,8 @@
                 :key="stat.label"
                 class="bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl p-5 transition-colors duration-200"
               >
-                <div class="font-heading text-3xl font-bold mb-1" :class="stat.color">
-                  {{ stat.value }}
+                <div class="font-heading text-3xl font-bold mb-1" :class="stat.couleur">
+                  {{ stat.valeur }}
                 </div>
                 <div class="text-white/50 text-xs leading-snug">{{ stat.label }}</div>
               </div>
@@ -71,10 +71,7 @@
 </template>
 
 <script setup lang="ts">
-const stats = [
-  { value: '10+', label: 'Années d\'expérience', color: 'text-dst-orange' },
-  { value: '50+', label: 'Projets livrés', color: 'text-dst-blue' },
-  { value: '30+', label: 'Clients actifs', color: 'text-green-400' },
-  { value: '24h', label: 'Réponse garantie', color: 'text-purple-400' },
-]
+const config = useRuntimeConfig()
+const { data: rawStats } = await useFetch<any[]>(`${config.public.apiBase}/v1/stats?contexte=cta`)
+const stats = computed(() => rawStats.value ?? [])
 </script>

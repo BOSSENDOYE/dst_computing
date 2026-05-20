@@ -213,9 +213,15 @@
 
 <script setup lang="ts">
 useSeoMeta({
-  title: 'Blog — DST Computing',
-  description: 'Actualités IT, conseils numériques et tendances technologiques pour les entreprises africaines par DST Computing.',
+  title: 'Blog IT & Numérique — Conseils pour Entreprises au Sénégal',
+  description: 'Blog DST Computing : actualités informatiques, conseils en transformation numérique, tendances IA et bonnes pratiques IT pour les PME et entreprises du Sénégal et d\'Afrique de l\'Ouest.',
+  keywords: 'blog informatique Sénégal, actualité IT Dakar, conseils numérique entreprise Sénégal, transformation digitale Afrique, intelligence artificielle Dakar, développement logiciel actualité, tech Sénégal, innovation numérique Dakar',
+  ogTitle: 'Blog IT — DST Computing, Dakar',
+  ogDescription: 'Conseils, actualités et tendances numériques pour les entreprises d\'Afrique de l\'Ouest.',
+  ogUrl: 'https://www.dstcomputing.sn/blog',
+  ogImage: 'https://www.dstcomputing.sn/og-image.jpg',
 })
+useHead({ link: [{ rel: 'canonical', href: 'https://www.dstcomputing.sn/blog' }] })
 
 const config = useRuntimeConfig()
 const categorie = ref('Tous')

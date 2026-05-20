@@ -1,0 +1,24 @@
+<?php
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration {
+    public function up(): void {
+        Schema::create('mission_items', function (Blueprint $table) {
+            $table->id();
+            $table->text('icone_path');
+            $table->string('icone_bg')->default('bg-dst-blue/10');
+            $table->string('icone_color')->default('text-dst-blue');
+            $table->string('barre')->default('bg-dst-blue');
+            $table->string('titre');
+            $table->text('texte');
+            $table->integer('ordre')->default(0);
+            $table->boolean('actif')->default(true);
+            $table->timestamps();
+        });
+    }
+    public function down(): void {
+        Schema::dropIfExists('mission_items');
+    }
+};

@@ -22,18 +22,32 @@ class ProduitResource extends Resource {
             Forms\Components\Section::make('Informations principales')->columns(2)->schema([
                 Forms\Components\TextInput::make('nom')->label('Nom')->required(),
                 Forms\Components\TextInput::make('tagline')->label('Tagline')->required(),
-                Forms\Components\TextInput::make('secteur')->label('Secteur')->required(),
+                Forms\Components\TextInput::make('secteur')->label('Secteur (Santé, Commerce, Administration, Archivage…)')->required(),
+                Forms\Components\TextInput::make('type')->label('Type (ex: Logiciel métier, ERP…)')->default('Logiciel métier'),
                 Forms\Components\TextInput::make('href')->label('Lien')->default('/realisations'),
                 Forms\Components\Textarea::make('description')->label('Description')->rows(3)->columnSpanFull()->required(),
             ]),
             Forms\Components\Section::make('Données techniques')->columns(2)->schema([
                 Forms\Components\TagsInput::make('techs')->label('Technologies (tags)')->columnSpanFull(),
                 Forms\Components\TagsInput::make('features')->label('Fonctionnalités (tags)')->columnSpanFull(),
-                Forms\Components\TextInput::make('accent_color')->label('Couleur accent (CSS class)')->default('bg-dst-blue'),
-                Forms\Components\TextInput::make('badge_class')->label('Badge class (CSS)')->default('bg-blue-50 text-dst-blue'),
-                Forms\Components\TextInput::make('btn_bg')->label('Bouton couleur (CSS class)')->default('bg-dst-blue'),
-                Forms\Components\Textarea::make('bg_gradient')->label('Gradient CSS (style inline)')->rows(2),
                 Forms\Components\Textarea::make('icon_path')->label('SVG icon path (d="...")')->rows(3)->columnSpanFull(),
+                Forms\Components\TextInput::make('accent_color')->label('Couleur accent texte (text-xxx)')->default('text-dst-blue')
+                    ->helperText('ex: text-dst-blue, text-dst-orange, text-green-600'),
+                Forms\Components\TextInput::make('badge_class')->label('Badge classe CSS')->default('bg-blue-50 text-blue-700')
+                    ->helperText('ex: bg-blue-50 text-blue-700'),
+                Forms\Components\TextInput::make('btn_bg')->label('Bouton couleur (bg-xxx hover:bg-xxx)')->default('bg-dst-blue hover:bg-blue-700'),
+                Forms\Components\TextInput::make('bg_gradient')->label('Gradient Tailwind (bg-gradient-to-br from-xxx to-xxx)')->default('bg-gradient-to-br from-blue-700 to-dst-blue')
+                    ->helperText('Classes Tailwind, pas de style inline'),
+            ]),
+            Forms\Components\Section::make('Statistiques produit')->schema([
+                Forms\Components\Repeater::make('produit_stats')->label('Statistiques affichées')
+                    ->schema([
+                        Forms\Components\TextInput::make('value')->label('Valeur')->required()->placeholder('15+'),
+                        Forms\Components\TextInput::make('label')->label('Label')->required()->placeholder('Pharmacies clientes'),
+                    ])
+                    ->columns(2)
+                    ->defaultItems(0)
+                    ->addActionLabel('Ajouter une statistique'),
             ]),
             Forms\Components\Section::make('Affichage')->columns(2)->schema([
                 Forms\Components\Toggle::make('is_active')->label('Actif')->default(true),

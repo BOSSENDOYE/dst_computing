@@ -153,9 +153,15 @@
 
 <script setup lang="ts">
 useSeoMeta({
-  title: 'Nos Services — DST Computing',
-  description: 'Développement logiciel, applications web & mobile, infrastructure IT, intelligence artificielle, formation — DST Computing vous accompagne dans votre transformation numérique.',
+  title: 'Services Informatiques à Dakar — Développement, IA & Infrastructure IT',
+  description: 'DST Computing propose à Dakar : développement logiciel sur mesure, applications web & mobile, agents IA & automatisation, infrastructure IT, maintenance et formation informatique pour les entreprises du Sénégal.',
+  keywords: 'développement logiciel Dakar, développement web Sénégal, application mobile Dakar, intelligence artificielle Sénégal, infrastructure IT Dakar, maintenance informatique Sénégal, formation informatique Dakar, prestataire développement Sénégal, agence web Dakar',
+  ogTitle: 'Services IT à Dakar — DST Computing',
+  ogDescription: 'Développement logiciel, IA, infrastructure IT et formation pour les entreprises sénégalaises et ouest-africaines.',
+  ogUrl: 'https://www.dstcomputing.sn/services',
+  ogImage: 'https://www.dstcomputing.sn/og-image.jpg',
 })
+useHead({ link: [{ rel: 'canonical', href: 'https://www.dstcomputing.sn/services' }] })
 
 const config = useRuntimeConfig()
 
@@ -173,34 +179,12 @@ const services = computed(() => (rawServices.value ?? []).map((s: any) => ({
   items: s.items ?? [],
 })))
 
-const avantages = [
-  {
-    title: 'Ancrage local',
-    text: 'Basés à Dakar, nous connaissons les réalités du marché ouest-africain.',
-    iconBg: 'bg-dst-blue/20',
-    iconColor: 'text-dst-blue',
-    iconPath: 'M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z',
-  },
-  {
-    title: 'Réactivité',
-    text: 'Réponse sous 24h et déploiements rapides, sans bureaucratie.',
-    iconBg: 'bg-dst-orange/20',
-    iconColor: 'text-dst-orange',
-    iconPath: 'M13 10V3L4 14h7v7l9-11h-7z',
-  },
-  {
-    title: 'Fiabilité',
-    text: 'Code de qualité, tests rigoureux et suivi post-déploiement.',
-    iconBg: 'bg-green-500/20',
-    iconColor: 'text-green-400',
-    iconPath: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
-  },
-  {
-    title: 'Scalabilité',
-    text: 'Des solutions qui grandissent avec votre activité sans tout refaire.',
-    iconBg: 'bg-purple-500/20',
-    iconColor: 'text-purple-400',
-    iconPath: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6',
-  },
-]
+const { data: rawAvantages } = await useFetch<any[]>(`${config.public.apiBase}/v1/avantages`)
+const avantages = computed(() => (rawAvantages.value ?? []).map((a: any) => ({
+  title: a.titre,
+  text: a.texte,
+  iconBg: a.icone_bg,
+  iconColor: a.icone_color,
+  iconPath: a.icone_path,
+})))
 </script>

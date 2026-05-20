@@ -190,9 +190,15 @@
 
 <script setup lang="ts">
 useSeoMeta({
-  title: 'Réalisations — DST Computing',
-  description: 'Découvrez les produits phares de DST Computing : SAYCURE, LERAL, GESOM-CCIS, Cabinet Soins Ide et SEN ARCHIV.',
+  title: 'Nos Réalisations & Logiciels Métiers — Sénégal, Dakar',
+  description: 'Découvrez les logiciels métiers développés par DST Computing à Dakar : SAYCURE (pharmacie), LERAL (gestion commerciale), GESOM-CCIS (douanes), SEN ARCHIV (archivage numérique). Solutions éprouvées pour les entreprises du Sénégal.',
+  keywords: 'logiciel pharmacie Sénégal, SAYCURE, logiciel gestion commerciale Dakar, LERAL, gestion douanes Sénégal, GESOM CCIS, archivage numérique Dakar, SEN ARCHIV, logiciel métier Sénégal, ERP pharmacie Dakar, gestion stock Sénégal, logiciel sur mesure Dakar',
+  ogTitle: 'Logiciels métiers DST Computing — Dakar, Sénégal',
+  ogDescription: 'SAYCURE, LERAL, GESOM-CCIS, SEN ARCHIV — des solutions éprouvées pour chaque secteur d\'activité au Sénégal.',
+  ogUrl: 'https://www.dstcomputing.sn/realisations',
+  ogImage: 'https://www.dstcomputing.sn/og-image.jpg',
 })
+useHead({ link: [{ rel: 'canonical', href: 'https://www.dstcomputing.sn/realisations' }] })
 
 const filtre = ref('tous')
 
@@ -208,58 +214,29 @@ const config = useRuntimeConfig()
 
 const { data: rawProduits } = await useFetch<any[]>(`${config.public.apiBase}/v1/produits`)
 
-// Métadonnées visuelles et de filtrage statiques par nom de produit
-const metaMap: Record<string, { secteurKey: string; type: string; bgGradient: string; tagClass: string; accentColor: string; btnBg: string; iconPath: string; stats: { value: string; label: string }[] }> = {
-  'SAYCURE': {
-    secteurKey: 'sante', type: 'Logiciel métier',
-    bgGradient: 'bg-gradient-to-br from-blue-700 to-dst-blue',
-    tagClass: 'bg-blue-50 text-blue-700', accentColor: 'text-dst-blue', btnBg: 'bg-dst-blue hover:bg-blue-700',
-    iconPath: 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10',
-    stats: [{ value: '15+', label: 'Pharmacies clientes' }, { value: '99.9%', label: 'Disponibilité' }, { value: '2019', label: 'Lancé en' }],
-  },
-  'LERAL': {
-    secteurKey: 'commerce', type: 'ERP multi-boutiques',
-    bgGradient: 'bg-gradient-to-br from-orange-600 to-dst-orange',
-    tagClass: 'bg-orange-50 text-orange-700', accentColor: 'text-dst-orange', btnBg: 'bg-dst-orange hover:bg-orange-600',
-    iconPath: 'M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z',
-    stats: [{ value: '10+', label: 'Commerces actifs' }, { value: '3 pays', label: 'Déployé dans' }, { value: '2021', label: 'Lancé en' }],
-  },
-  'GESOM-CCIS': {
-    secteurKey: 'administration', type: 'Logiciel métier',
-    bgGradient: 'bg-gradient-to-br from-green-700 to-green-500',
-    tagClass: 'bg-green-50 text-green-700', accentColor: 'text-green-600', btnBg: 'bg-green-600 hover:bg-green-700',
-    iconPath: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z',
-    stats: [{ value: '500+', label: 'Dossiers/mois' }, { value: '1', label: 'Déploiement CCIS' }, { value: '2022', label: 'Lancé en' }],
-  },
-  'Cabinet Soins Ide': {
-    secteurKey: 'sante', type: 'Application mobile & web',
-    bgGradient: 'bg-gradient-to-br from-purple-700 to-purple-500',
-    tagClass: 'bg-purple-50 text-purple-700', accentColor: 'text-purple-600', btnBg: 'bg-purple-600 hover:bg-purple-700',
-    iconPath: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z',
-    stats: [{ value: '8+', label: 'Cabinets utilisateurs' }, { value: '2 000+', label: 'Patients suivis' }, { value: '2023', label: 'Lancé en' }],
-  },
-  'SEN ARCHIV': {
-    secteurKey: 'archivage', type: 'GED / Logiciel métier',
-    bgGradient: 'bg-gradient-to-br from-teal-700 to-teal-500',
-    tagClass: 'bg-teal-50 text-teal-700', accentColor: 'text-teal-600', btnBg: 'bg-teal-600 hover:bg-teal-700',
-    iconPath: 'M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4',
-    stats: [{ value: '50 000+', label: 'Documents archivés' }, { value: '5+', label: 'Institutions clientes' }, { value: '2023', label: 'Lancé en' }],
-  },
+// Dérivation de la clé de filtre à partir du secteur
+const secteurKeys: Record<string, string> = {
+  'Santé': 'sante',
+  'Commerce': 'commerce',
+  'Administration': 'administration',
+  'Archivage': 'archivage',
 }
 
 const produits = computed(() => (rawProduits.value ?? []).map((p: any) => ({
   id: p.id,
   nom: p.nom,
   secteur: p.secteur,
+  type: p.type ?? 'Logiciel métier',
   description: p.description,
   techs: p.techs ?? [],
   features: p.features ?? [],
-  ...(metaMap[p.nom] ?? {
-    secteurKey: 'autres', type: 'Logiciel métier',
-    bgGradient: 'bg-gradient-to-br from-dst-navy to-dst-blue',
-    tagClass: 'bg-blue-50 text-blue-700', accentColor: 'text-dst-blue', btnBg: 'bg-dst-blue hover:bg-blue-700',
-    iconPath: p.icon_path ?? '', stats: [],
-  }),
+  stats: p.produit_stats ?? [],
+  bgGradient: p.bg_gradient ?? 'bg-gradient-to-br from-dst-navy to-dst-blue',
+  tagClass: p.badge_class ?? 'bg-blue-50 text-blue-700',
+  accentColor: p.accent_color ?? 'text-dst-blue',
+  btnBg: p.btn_bg ?? 'bg-dst-blue hover:bg-blue-700',
+  iconPath: p.icon_path ?? '',
+  secteurKey: secteurKeys[p.secteur] ?? 'autres',
 })))
 
 const produitsFiltres = computed(() => {
